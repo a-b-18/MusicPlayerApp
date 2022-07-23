@@ -85,7 +85,7 @@ namespace AudioPreviewApp
             (audio_samples, sampleRateOld) = ReadWav(filePath);
             samples = new Complex[audio_samples.Length];
             var numSamples = audio_samples.Length;
-
+            
             chart1.Series["Waveform"].Points.Clear();
 
             // Add waveforms together to get composite waveforms
@@ -102,6 +102,7 @@ namespace AudioPreviewApp
             Fourier.Forward(fourierSeries, FourierOptions.NoScaling);
 
             // New list
+            chart2.Series["Waveform"].Points.Clear();
             var frequencyList = new List<int>();
 
             // Add waveforms together to get composite waveforms
@@ -157,14 +158,44 @@ namespace AudioPreviewApp
             var frames = new float[bufferedFrames];
             samplesProvider.Read(frames, 0, bufferedFrames);
 
-            // Plot buffer on graph
+            // Plot buffer on time graph
             chart1.Series["Waveform"].Points.Clear();
+            var complexSamples = new Complex[bufferedFrames];
             foreach (var frame in frames.Select((_data, _index) => (_data = _data, _index = _index))
                 .Where(frame => frame.Item2 % 100 == 0))
             {
+                complexSamples[frame.Item2] = new Complex(frame.Item1, 0);
                 chart1.Series["Waveform"].Points.AddXY(frame.Item2, frame.Item1);
             }
 
+
+            // Compute fourier transform
+            Fourier.Forward(complexSamples, FourierOptions.NoScaling);
+
+            // Prepare frequency graph
+            var freqMagList = new Dictionary<int, double>();
+            chart2.Series["Waveform"].Points.Clear();
+
+            // Plot frequency graph
+            for (int i = 0; i < bufferedFrames / 40; i++)
+            {
+                var mag = (2.0 / bufferedFrames) * (complexSamples[i].Magnitude);
+                chart2.Series["Waveform"].Points.AddXY(i * 2, mag);
+
+                // Create frequency list
+                if (mag > 0.002)
+                    freqMagList.Add(i * 2, mag);
+            }
+
+            // Add 5 largest magnitudes of frequency to list
+            ListBox_GreatestFrequency.Items.Clear();
+            var freqList = freqMagList.OrderByDescending(freqMag => freqMag.Value).Take(5).Select(freqMag => freqMag.Key).ToList();
+            freqList.Sort();
+            freqList.ForEach(freq => ListBox_GreatestFrequency.Items.Add(freq));
+
+
+
+            // Write and reset buffer
             waveWriter.Write(e.Buffer, 0, e.BytesRecorded);
             waveWriter.Flush();
         }
