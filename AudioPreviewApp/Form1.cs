@@ -46,6 +46,7 @@ namespace AudioPreviewApp
                               * audioWaveIn.WaveFormat.Channels;
             var samplesPerBuffer = audioBuffer.BufferedBytes / bufferedBytesPerSample;
             var msPerSample = ((double) audioWaveIn.BufferMilliseconds / samplesPerBuffer);
+            var hzPerSample = sampleRate / samplesPerBuffer;
 
             // Read buffer into channel
             var timeSamplesCh1 = new float[samplesPerBuffer];
@@ -119,13 +120,14 @@ namespace AudioPreviewApp
             Chart_Frequency.Series["Channel 1"].Points.Clear();
             var freqMagList = new Dictionary<double, double>();
 
-            // Plot frequency graph channel 1
-            foreach (var sample in freqSamplesCh1.Select((_value, _index) => (_value, _index)))
+            // Plot frequency graph channel 1.
+            // Only first half of samples need to be plotted because fourier transform is bidirectional.
+            foreach (var sample in freqSamplesCh1.Take(samplesPerBuffer / 2).Select((_value, _index) => (_value, _index)))
             {
+                // Store magnitude and frequency.
                 var mag = sample._value.Magnitude;
-                var freq = /*secondsPerBuffer*/ 2 * sample._index;
-                Chart_Frequency.Series["Channel 1"].Points
-                    .AddXY(freq, mag);
+                var freq = 2 * hzPerSample * sample._index;
+                Chart_Frequency.Series["Channel 1"].Points.AddXY(freq, mag);
 
                 // Create frequency list
                 if (sample._value.Magnitude > 40)
