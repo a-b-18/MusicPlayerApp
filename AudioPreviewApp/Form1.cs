@@ -19,13 +19,14 @@ namespace AudioPreviewApp
     public partial class Form1 : Form
     {
         // Form fields
-        private const int sampleRate = 32000;
+        private const int sampleRate = 44100;
         private const string audioPathOut = @"C:/Temp/demo.wav";
         private WaveIn audioWaveIn;
         private WaveFileWriter audioFileWriter;
         private BufferedWaveProvider audioBuffer;
         private ISampleProvider audioSamples;
         private int readCounter = 0;
+        private double prevSelectFreq = 500;
         private readonly Dictionary<double, string> noteFrequency = new Dictionary<double, string> 
         {
             {16.35, "C0"},
@@ -180,7 +181,7 @@ namespace AudioPreviewApp
                 freqSamplesCh1[sample._index] = new Complex(sample._data, 0);
 
                 // Start plotting time domain when data is zero and increasing
-                if ((int)(sample._data * 1e2) == 0 && sample._data > lastVal && sample._index < indexPlotStart + samplesPerBuffer / 16)
+                if ((int)(sample._data * 1e2) == 0 && sample._data > lastVal && sample._index < indexPlotStart + samplesPerBuffer / (16 * prevSelectFreq / 500))
                 {
                     // Begin plotting
                     if (indexPlotStart == -1)
@@ -247,11 +248,42 @@ namespace AudioPreviewApp
 
             // Display 5 highest-magnitude of frequency of channel 1
             ListBox_GreatestFrequency.Items.Clear();
-            var selectFreqList = freqMagList.OrderByDescending(freqMag => freqMag.Value).Take(5).Select(freqMag => freqMag.Key).ToList();
+            double avgFreq = -1;
+            double prevFreq = -1;
+            int groupCount = 1;
+            string noteString;
+            var selectFreqList = freqMagList.OrderByDescending(freqMag => freqMag.Value).Select(freqMag => freqMag.Key).ToList();
+            if (selectFreqList.Count != 0)
+                prevSelectFreq = selectFreqList.First();
             foreach (var selectFreq in selectFreqList)
             {
-                var noteString = noteFrequency.OrderBy(note => Math.Abs(note.Key - selectFreq)).First().Value;
-                ListBox_GreatestFrequency.Items.Add("Freq: " + selectFreq + ". Closest Note: " + noteString + ".");
+                // If freq sample doesn't belong in same group as prev freq (more than 10 steps ahead)
+                if (prevFreq == -1 || selectFreq > prevFreq + (2 * hzPerSample))
+                {
+                    if (prevFreq != -1)
+                    {
+                        // Return closest note to selected frequency
+                        noteString = noteFrequency.OrderBy(note => Math.Abs(note.Key - avgFreq)).First().Value;
+                        // Add details to list
+                        ListBox_GreatestFrequency.Items.Add("Freq: " + (int) avgFreq + ". Closest Note: " + noteString + ".");
+                    }
+                    avgFreq = selectFreq;
+                    prevFreq = selectFreq;
+                    groupCount = 1;
+                }
+                else
+                {
+                    groupCount++;
+                    avgFreq = (selectFreq + prevFreq) / groupCount;
+                }
+            }
+
+            if (prevFreq != -1)
+            {
+                // Return closest note to selected frequency
+                noteString = noteFrequency.OrderBy(note => Math.Abs(note.Key - avgFreq)).First().Value;
+                // Add details to list
+                ListBox_GreatestFrequency.Items.Add("Freq: " + (int)avgFreq + ". Closest Note: " + noteString + ".");
             }
 
             // Write and reset buffer
