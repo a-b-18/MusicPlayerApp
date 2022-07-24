@@ -139,6 +139,7 @@
             // 
             // ListBox_GreatestFrequency
             // 
+            this.ListBox_GreatestFrequency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ListBox_GreatestFrequency.FormattingEnabled = true;
             this.ListBox_GreatestFrequency.Location = new System.Drawing.Point(860, 450);
             this.ListBox_GreatestFrequency.Name = "ListBox_GreatestFrequency";
@@ -147,6 +148,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(854, 434);
             this.label1.Name = "label1";
@@ -156,6 +158,7 @@
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(881, 227);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 33);
@@ -166,6 +169,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(854, 124);
             this.label2.Name = "label2";
@@ -175,6 +179,7 @@
             // 
             // ListBox_Statistics
             // 
+            this.ListBox_Statistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ListBox_Statistics.FormattingEnabled = true;
             this.ListBox_Statistics.Location = new System.Drawing.Point(860, 140);
             this.ListBox_Statistics.Name = "ListBox_Statistics";
