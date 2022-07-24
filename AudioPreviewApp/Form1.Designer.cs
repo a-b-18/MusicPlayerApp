@@ -84,7 +84,7 @@
             this.Chart_Time.Series.Add(series2);
             this.Chart_Time.Series.Add(series3);
             this.Chart_Time.Series.Add(series4);
-            this.Chart_Time.Size = new System.Drawing.Size(965, 324);
+            this.Chart_Time.Size = new System.Drawing.Size(1025, 324);
             this.Chart_Time.TabIndex = 0;
             this.Chart_Time.Text = "Series1";
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
@@ -119,7 +119,7 @@
             series6.Name = "Channel 2";
             this.Chart_Frequency.Series.Add(series5);
             this.Chart_Frequency.Series.Add(series6);
-            this.Chart_Frequency.Size = new System.Drawing.Size(965, 324);
+            this.Chart_Frequency.Size = new System.Drawing.Size(1025, 324);
             this.Chart_Frequency.TabIndex = 1;
             this.Chart_Frequency.Text = "Series1";
             title4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
@@ -140,15 +140,15 @@
             // ListBox_GreatestFrequency
             // 
             this.ListBox_GreatestFrequency.FormattingEnabled = true;
-            this.ListBox_GreatestFrequency.Location = new System.Drawing.Point(808, 450);
+            this.ListBox_GreatestFrequency.Location = new System.Drawing.Point(860, 450);
             this.ListBox_GreatestFrequency.Name = "ListBox_GreatestFrequency";
-            this.ListBox_GreatestFrequency.Size = new System.Drawing.Size(144, 186);
+            this.ListBox_GreatestFrequency.Size = new System.Drawing.Size(157, 186);
             this.ListBox_GreatestFrequency.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(806, 434);
+            this.label1.Location = new System.Drawing.Point(854, 434);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(122, 13);
             this.label1.TabIndex = 3;
@@ -156,7 +156,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(808, 227);
+            this.button2.Location = new System.Drawing.Point(881, 227);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 33);
             this.button2.TabIndex = 5;
@@ -167,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(806, 124);
+            this.label2.Location = new System.Drawing.Point(854, 124);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 7;
@@ -176,16 +176,16 @@
             // ListBox_Statistics
             // 
             this.ListBox_Statistics.FormattingEnabled = true;
-            this.ListBox_Statistics.Location = new System.Drawing.Point(808, 140);
+            this.ListBox_Statistics.Location = new System.Drawing.Point(860, 140);
             this.ListBox_Statistics.Name = "ListBox_Statistics";
-            this.ListBox_Statistics.Size = new System.Drawing.Size(144, 69);
+            this.ListBox_Statistics.Size = new System.Drawing.Size(157, 69);
             this.ListBox_Statistics.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 885);
+            this.ClientSize = new System.Drawing.Size(1025, 885);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ListBox_Statistics);
             this.Controls.Add(this.button2);
