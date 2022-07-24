@@ -32,13 +32,15 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
             System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
@@ -47,6 +49,8 @@
             this.ListBox_GreatestFrequency = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.ListBox_Statistics = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Time)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Frequency)).BeginInit();
             this.SuspendLayout();
@@ -68,8 +72,18 @@
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series2.Legend = "Legend1";
             series2.Name = "Channel 2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Legend = "Legend1";
+            series3.Name = "Start Cursor";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "End Cursor";
             this.Chart_Time.Series.Add(series1);
             this.Chart_Time.Series.Add(series2);
+            this.Chart_Time.Series.Add(series3);
+            this.Chart_Time.Series.Add(series4);
             this.Chart_Time.Size = new System.Drawing.Size(965, 324);
             this.Chart_Time.TabIndex = 0;
             this.Chart_Time.Text = "Series1";
@@ -79,7 +93,7 @@
             title2.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title2.Name = "Title2";
-            title2.Text = "Sample No.";
+            title2.Text = "Time (milliseconds)";
             title3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
             title3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             title3.Name = "Title3";
@@ -97,14 +111,14 @@
             this.Chart_Frequency.Legends.Add(legend2);
             this.Chart_Frequency.Location = new System.Drawing.Point(0, 324);
             this.Chart_Frequency.Name = "Chart_Frequency";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Channel 1";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Channel 2";
-            this.Chart_Frequency.Series.Add(series3);
-            this.Chart_Frequency.Series.Add(series4);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Channel 1";
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Channel 2";
+            this.Chart_Frequency.Series.Add(series5);
+            this.Chart_Frequency.Series.Add(series6);
             this.Chart_Frequency.Size = new System.Drawing.Size(965, 324);
             this.Chart_Frequency.TabIndex = 1;
             this.Chart_Frequency.Text = "Series1";
@@ -142,7 +156,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(808, 185);
+            this.button2.Location = new System.Drawing.Point(808, 227);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(115, 33);
             this.button2.TabIndex = 5;
@@ -150,11 +164,30 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Click_StopRecording);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(806, 124);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Statistics";
+            // 
+            // ListBox_Statistics
+            // 
+            this.ListBox_Statistics.FormattingEnabled = true;
+            this.ListBox_Statistics.Location = new System.Drawing.Point(808, 140);
+            this.ListBox_Statistics.Name = "ListBox_Statistics";
+            this.ListBox_Statistics.Size = new System.Drawing.Size(144, 69);
+            this.ListBox_Statistics.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(965, 885);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.ListBox_Statistics);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ListBox_GreatestFrequency);
@@ -176,6 +209,8 @@
         private System.Windows.Forms.ListBox ListBox_GreatestFrequency;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox ListBox_Statistics;
     }
 }
 
