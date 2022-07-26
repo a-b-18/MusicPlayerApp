@@ -122,6 +122,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -175,6 +176,14 @@
     <Content Include="Static\Gq_Drum.wav" />
     <Content Include="Static\G_Drum.wav" />
     <Content Include="Static\G_s.wav" />
+    <None Include="Static\Key_Highlight.jpg" />
+    <None Include="Static\Key_Highlight.bmp" />
+    <Content Include="Static\Key_Highlight.png" />
+    <None Include="Static\Key_Highlight_B.png" />
+    <None Include="Static\Key_Highlight_W_L.png" />
+    <None Include="Static\Key_Highlight_W_LR.png" />
+    <None Include="Static\Key_Highlight_W_R.png" />
+    <Content Include="Static\Piano_Keys.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
