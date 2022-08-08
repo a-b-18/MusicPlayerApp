@@ -434,7 +434,7 @@ namespace AudioPreviewApp
             }
 
             // Highlight the note being played
-            if (noteString != "")
+            if (noteString != "" && Panel_Keyboard.Visible)
                 SwitchToKey(noteString);
 
             // Write and reset buffer
@@ -942,5 +942,52 @@ namespace AudioPreviewApp
             As8orBb8,
             B8,
         }
+
+        private void Click_TimeGraphToggle(object sender, EventArgs e)
+        {
+            switch (TS_TimeGraphToggle.Text)
+            {
+                case "Time Graph (Hide)":
+                    Panel_TimeGraph.Visible = false;
+                    TS_TimeGraphToggle.Text = "Time Graph (Unhide)";
+                    break;
+                case "Time Graph (Unhide)":
+                    Panel_TimeGraph.Visible = true;
+                    TS_TimeGraphToggle.Text = "Time Graph (Hide)";
+                    break;
+            }
+        }
+
+        private void Click_FreqGraphToggle(object sender, EventArgs e)
+        {
+            switch (TS_FreqGraphToggle.Text)
+            {
+                case "Freq Graph (Hide)":
+                    Panel_FreqGraph.Visible = false;
+                    TS_FreqGraphToggle.Text = "Freq Graph (Unhide)";
+                    break;
+                case "Freq Graph (Unhide)":
+                    Panel_FreqGraph.Visible = true;
+                    TS_FreqGraphToggle.Text = "Freq Graph (Hide)";
+                    break;
+            }
+        }
+
+        private void Click_KeyboardToggle(object sender, EventArgs e)
+        {
+            switch (TS_KeyboardToggle.Text)
+            {
+                case "Keyboard (Hide)":
+                    Panel_Keyboard.Visible = false;
+                    TS_KeyboardToggle.Text = "Keyboard (Unhide)";
+                    break;
+                case "Keyboard (Unhide)":
+                    Panel_Keyboard.Visible = true;
+                    TS_KeyboardToggle.Text = "Keyboard (Hide)";
+                    break;
+            }
+        }
+
+
     }
 }
