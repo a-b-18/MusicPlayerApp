@@ -386,8 +386,11 @@ namespace AudioPreviewApp
             int groupCount = 1;
             string noteString = "";
             var selectFreqList = freqMagList.OrderByDescending(freqMag => freqMag.Value).Select(freqMag => freqMag.Key).ToList();
+            
+            // Set prev freq
             if (selectFreqList.Count != 0)
                 prevSelectFreq = selectFreqList.First();
+
             foreach (var selectFreq in selectFreqList)
             {
                 // If freq sample doesn't belong in same group as prev freq (more than 10 steps ahead)
@@ -411,6 +414,10 @@ namespace AudioPreviewApp
                     avgFreq = (selectFreq + prevFreq) / groupCount;
                 }
             }
+
+            // Draw note on note history
+            DrawNoteHistory(freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList());
+            DrawNoteHistoryLabel(noteString);
 
             // Handle final group
             if (prevFreq != -1)
@@ -440,6 +447,104 @@ namespace AudioPreviewApp
             // Write and reset buffer
             audioFileWriter.Write(e.Buffer, 0, e.BytesRecorded);
             audioFileWriter.Flush();
+        }
+
+        const int y_chunk = 10;
+        private void DrawNoteHistoryLabel(string notePlayed)
+        {
+            if (notePlayed != "")
+            {
+                notePlayed = notePlayed.Substring(0, 2);
+                if (notePlayed.Last() != '#')
+                    notePlayed = notePlayed.Substring(0, 1);
+            }
+            var labelWidth = (PictureBox_NoteHistory.Image.Width - 1) / 12;
+            var labelList = new List<string>
+            {
+                "C",
+                "C#",
+                "D",
+                "D#",
+                "E",
+                "F",
+                "F#",
+                "G",
+                "G#",
+                "A",
+                "A#",
+                "B",
+            };
+
+            // Draw label
+            foreach (var offset_x in Enumerable.Range(1, 12))
+            {
+                using (var graphics = Graphics.FromImage(PictureBox_NoteHistory.Image))
+                {
+                    graphics.DrawString(labelList[offset_x - 1], new Font("Arial", 6), new SolidBrush(Color.CadetBlue), offset_x * labelWidth -(labelWidth/2), PictureBox_NoteHistory.Image.Height - 1 - y_chunk);
+
+                    if (notePlayed == labelList[offset_x - 1])
+                    {
+                        foreach (var range_x in Enumerable.Range(-10, 20))
+                        {
+                            foreach (var range_y in Enumerable.Range(-y_chunk, y_chunk))
+                            {
+
+                                ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(range_x + offset_x * labelWidth - (labelWidth / 2),
+                                    PictureBox_NoteHistory.Image.Height - 1 - y_chunk + range_y, Color.Black);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            // Draw grid
+            foreach (var offset_x in Enumerable.Range(0, 13))
+            {
+                foreach (var pixel_y in Enumerable.Range(1, PictureBox_NoteHistory.Image.Height - 2))
+                {
+                    ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(offset_x * labelWidth + 1, pixel_y, Color.LightGray);
+                }
+            }
+        }
+
+        private void DrawNoteHistory(List<int> frequencyList)
+        {
+            var resultImage = new Bitmap(600, 308);
+
+            // Draw current frequency list
+            //foreach (var frequency in frequencyList)
+            //{
+            //    var pixel_x = ((double)frequency / sampleRate) * resultImage.Width;
+
+            //    foreach (var offset_x in Enumerable.Range(-10,20))
+            //    {
+            //        if (pixel_x + offset_x > 0 && pixel_x + offset_x < resultImage.Width)
+            //        {
+            //            foreach (var pixel_y in Enumerable.Range(resultImage.Height - 1 - 2 * y_chunk, y_chunk))
+            //            {
+            //                resultImage.SetPixel((int)pixel_x + offset_x, pixel_y, Color.Black);
+            //            }
+            //        }
+            //    }
+            //}
+
+            // Move the pixels up
+            if (PictureBox_NoteHistory.Image != null)
+            {
+                for (var row = +1 + 2*y_chunk; row < resultImage.Height; row++)
+                {
+                    for (var col = 1; col < resultImage.Width; col++)
+                    {
+                        if (((Bitmap)PictureBox_NoteHistory.Image).GetPixel(col, row).Name == "ff000000")
+                        {
+                            resultImage.SetPixel(col, row - y_chunk, Color.Black);
+                        }
+                    }
+                }
+            }
+
+            PictureBox_NoteHistory.Image = resultImage;
         }
 
         private void StartRecording()
