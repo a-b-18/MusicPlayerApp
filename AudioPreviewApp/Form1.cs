@@ -376,6 +376,10 @@ namespace AudioPreviewApp
                     maxFreqMag = sample._value.Magnitude;
             }
 
+            // Draw note on note history
+            DrawNoteHistory(freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList());
+            DrawNoteHistoryLabel(noteFrequency.OrderBy(note => Math.Abs(note.Key - (int)(freqMagList.Where(freqMag => freqMag.Value > 3).OrderByDescending(freq => freq.Value).FirstOrDefault().Key))).FirstOrDefault().Value);
+
             // Store max frequency for magnitude calibration
             prevMaxFreqMag = maxFreqMag;
 
@@ -386,7 +390,7 @@ namespace AudioPreviewApp
             int groupCount = 1;
             string noteString = "";
             var selectFreqList = freqMagList.OrderByDescending(freqMag => freqMag.Value).Select(freqMag => freqMag.Key).ToList();
-            
+
             // Set prev freq
             if (selectFreqList.Count != 0)
                 prevSelectFreq = selectFreqList.First();
@@ -396,16 +400,16 @@ namespace AudioPreviewApp
                 // If freq sample doesn't belong in same group as prev freq (more than 10 steps ahead)
                 if (prevFreq == -1 || selectFreq > prevFreq + (2 * hzPerSample))
                 {
+                    avgFreq = selectFreq;
+                    prevFreq = selectFreq;
+                    groupCount = 1;
                     if (prevFreq != -1)
                     {
                         // Return closest note to selected frequency
                         noteString = noteFrequency.OrderBy(note => Math.Abs(note.Key - avgFreq)).First().Value;
                         // Add details to list
-                        ListBox_GreatestFrequency.Items.Add("Freq: " + (int) avgFreq + ". Closest Note: " + noteString + ".");
+                        ListBox_GreatestFrequency.Items.Add("Freq: " + (int)avgFreq + ". Closest Note: " + noteString + ".");
                     }
-                    avgFreq = selectFreq;
-                    prevFreq = selectFreq;
-                    groupCount = 1;
                 }
                 else
                 {
@@ -414,10 +418,6 @@ namespace AudioPreviewApp
                     avgFreq = (selectFreq + prevFreq) / groupCount;
                 }
             }
-
-            // Draw note on note history
-            DrawNoteHistory(freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList());
-            DrawNoteHistoryLabel(noteString);
 
             // Handle final group
             if (prevFreq != -1)
