@@ -258,7 +258,7 @@ namespace AudioPreviewApp
         public Form1()
         {
             InitializeComponent();
-            StartRecording();
+            StartRecording(0);
         }
 
         private void DataAvailable_AudioWaveIn(object sender, WaveInEventArgs e)
@@ -376,9 +376,23 @@ namespace AudioPreviewApp
                     maxFreqMag = sample._value.Magnitude;
             }
 
+            // Avoid null exception when writting note history
+            if (PictureBox_NoteHistory.Image == null)
+            {
+                PictureBox_NoteHistory.Image = new Bitmap(600, 308);
+            }
+
             // Draw note on note history
-            DrawNoteHistory(freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList());
-            DrawNoteHistoryLabel(noteFrequency.OrderBy(note => Math.Abs(note.Key - (int)(freqMagList.Where(freqMag => freqMag.Value > 3).OrderByDescending(freq => freq.Value).FirstOrDefault().Key))).FirstOrDefault().Value);
+            var frequencyList = freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList();
+            if (frequencyList.Count != 0)
+            {
+                DrawNoteHistory(frequencyList);
+                DrawNoteHistoryLabel(noteFrequency.OrderBy(note => Math.Abs(note.Key - (int)(freqMagList.Where(freqMag => freqMag.Value > 3).OrderByDescending(freq => freq.Value).FirstOrDefault().Key))).FirstOrDefault().Value);
+            }
+            else
+            {
+                DrawNoteHistoryLabel("");
+            }
 
             // Store max frequency for magnitude calibration
             prevMaxFreqMag = maxFreqMag;
@@ -452,82 +466,73 @@ namespace AudioPreviewApp
         const int y_chunk = 10;
         private void DrawNoteHistoryLabel(string notePlayed)
         {
-            if (notePlayed != "")
+            try
             {
-                notePlayed = notePlayed.Substring(0, 2);
-                if (notePlayed.Last() != '#')
-                    notePlayed = notePlayed.Substring(0, 1);
-            }
-            var labelWidth = (PictureBox_NoteHistory.Image.Width - 1) / 12;
-            var labelList = new List<string>
-            {
-                "C",
-                "C#",
-                "D",
-                "D#",
-                "E",
-                "F",
-                "F#",
-                "G",
-                "G#",
-                "A",
-                "A#",
-                "B",
-            };
 
-            // Draw label
-            foreach (var offset_x in Enumerable.Range(1, 12))
-            {
-                using (var graphics = Graphics.FromImage(PictureBox_NoteHistory.Image))
+                if (notePlayed != "")
                 {
-                    graphics.DrawString(labelList[offset_x - 1], new Font("Arial", 6), new SolidBrush(Color.CadetBlue), offset_x * labelWidth -(labelWidth/2), PictureBox_NoteHistory.Image.Height - 1 - y_chunk);
+                    notePlayed = notePlayed.Substring(0, 2);
+                    if (notePlayed.Last() != '#')
+                        notePlayed = notePlayed.Substring(0, 1);
+                }
+                var labelWidth = (PictureBox_NoteHistory.Image.Width - 1) / 12;
+                var labelList = new List<string>
+                {
+                    "C",
+                    "C#",
+                    "D",
+                    "D#",
+                    "E",
+                    "F",
+                    "F#",
+                    "G",
+                    "G#",
+                    "A",
+                    "A#",
+                    "B",
+                };
 
-                    if (notePlayed == labelList[offset_x - 1])
+                // Draw label
+                foreach (var offset_x in Enumerable.Range(1, 12))
+                {
+                    using (var graphics = Graphics.FromImage(PictureBox_NoteHistory.Image))
                     {
-                        foreach (var range_x in Enumerable.Range(-10, 20))
-                        {
-                            foreach (var range_y in Enumerable.Range(-y_chunk, y_chunk))
-                            {
+                        graphics.DrawString(labelList[offset_x - 1], new Font("Arial", 6), new SolidBrush(Color.CadetBlue), offset_x * labelWidth - (labelWidth / 2), PictureBox_NoteHistory.Image.Height - 1 - y_chunk);
 
-                                ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(range_x + offset_x * labelWidth - (labelWidth / 2),
-                                    PictureBox_NoteHistory.Image.Height - 1 - y_chunk + range_y, Color.Black);
+                        if (notePlayed == labelList[offset_x - 1])
+                        {
+                            foreach (var range_x in Enumerable.Range(-10, 20))
+                            {
+                                foreach (var range_y in Enumerable.Range(-y_chunk, y_chunk))
+                                {
+
+                                    ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(range_x + offset_x * labelWidth - (labelWidth / 2),
+                                        PictureBox_NoteHistory.Image.Height - 1 - y_chunk + range_y, Color.Black);
+                                }
                             }
                         }
                     }
+
                 }
 
-            }
-
-            // Draw grid
-            foreach (var offset_x in Enumerable.Range(0, 13))
-            {
-                foreach (var pixel_y in Enumerable.Range(1, PictureBox_NoteHistory.Image.Height - 2))
+                // Draw grid
+                foreach (var offset_x in Enumerable.Range(0, 13))
                 {
-                    ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(offset_x * labelWidth + 1, pixel_y, Color.LightGray);
+                    foreach (var pixel_y in Enumerable.Range(1, PictureBox_NoteHistory.Image.Height - 2))
+                    {
+                        ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(offset_x * labelWidth + 1, pixel_y, Color.LightGray);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
         private void DrawNoteHistory(List<int> frequencyList)
         {
             var resultImage = new Bitmap(600, 308);
-
-            // Draw current frequency list
-            //foreach (var frequency in frequencyList)
-            //{
-            //    var pixel_x = ((double)frequency / sampleRate) * resultImage.Width;
-
-            //    foreach (var offset_x in Enumerable.Range(-10,20))
-            //    {
-            //        if (pixel_x + offset_x > 0 && pixel_x + offset_x < resultImage.Width)
-            //        {
-            //            foreach (var pixel_y in Enumerable.Range(resultImage.Height - 1 - 2 * y_chunk, y_chunk))
-            //            {
-            //                resultImage.SetPixel((int)pixel_x + offset_x, pixel_y, Color.Black);
-            //            }
-            //        }
-            //    }
-            //}
 
             // Move the pixels up
             if (PictureBox_NoteHistory.Image != null)
@@ -547,21 +552,34 @@ namespace AudioPreviewApp
             PictureBox_NoteHistory.Image = resultImage;
         }
 
-        private void StartRecording()
+        private bool StartRecording(int deviceNumber)
         {
-            // Initialize audio WaveIn
-            audioWaveIn = new WaveIn();
-            audioWaveIn.DeviceNumber = 0;
-            audioWaveIn.WaveFormat = new WaveFormat(sampleRate, WaveIn.GetCapabilities(audioWaveIn.DeviceNumber).Channels);
-            audioWaveIn.DataAvailable += new EventHandler<WaveInEventArgs>(DataAvailable_AudioWaveIn);
-            audioWaveIn.StartRecording();
+            try
+            {
+                // Initialize audio WaveIn
+                if (audioWaveIn != null)
+                    audioWaveIn.Dispose();
+                audioWaveIn = new WaveIn();
+                audioWaveIn.DeviceNumber = deviceNumber;
+                audioWaveIn.WaveFormat = new WaveFormat(sampleRate, WaveIn.GetCapabilities(audioWaveIn.DeviceNumber).Channels);
+                audioWaveIn.DataAvailable += new EventHandler<WaveInEventArgs>(DataAvailable_AudioWaveIn);
+                audioWaveIn.StartRecording();
 
-            // Initialize audio WaveWriter for continuous writing from buffer
-            audioFileWriter = new WaveFileWriter(audioPathOut, audioWaveIn.WaveFormat);
+                // Initialize audio WaveWriter for continuous writing from buffer
+                if (audioFileWriter != null)
+                    audioFileWriter.Dispose();
+                audioFileWriter = new WaveFileWriter(audioPathOut, audioWaveIn.WaveFormat);
 
-            // Initialize providers for handling display data
-            audioBuffer = new BufferedWaveProvider(audioWaveIn.WaveFormat);
-            audioSamples = audioBuffer.ToSampleProvider();
+                // Initialize providers for handling display data
+                audioBuffer = new BufferedWaveProvider(audioWaveIn.WaveFormat);
+                audioSamples = audioBuffer.ToSampleProvider();
+                return true;
+            } catch (Exception ex)
+            {
+                audioFileWriter.Dispose();
+                audioWaveIn.Dispose();
+                return false;
+            }
         }
 
         private void Click_ClearSession(object sender, EventArgs e)
@@ -583,6 +601,7 @@ namespace AudioPreviewApp
             Button_WriteSession.Click -= Click_WriteSession;
             Button_WriteSession.Click += Click_PauseSession;
         }
+
         private void Click_PauseSession(object sender, EventArgs e)
         {
             writeFile = false;
@@ -1093,6 +1112,20 @@ namespace AudioPreviewApp
             }
         }
 
+        private decimal prevOutput = 0;
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            var success = StartRecording((int) UpDown_SelectOutput.Value);
 
+            // Restore value if unsuccessful
+            if (!success)
+            {
+                UpDown_SelectOutput.Value = prevOutput;
+                return;
+            }
+
+            prevOutput = UpDown_SelectOutput.Value;
+
+        }
     }
 }
