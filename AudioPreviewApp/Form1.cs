@@ -261,6 +261,7 @@ namespace AudioPreviewApp
             StartRecording(0);
         }
 
+        private int rootCountdown = 2;
         private void DataAvailable_AudioWaveIn(object sender, WaveInEventArgs e)
         {
             // Event is called 10 times per second, reduce this down to 2 with counter
@@ -386,12 +387,15 @@ namespace AudioPreviewApp
             var frequencyList = freqMagList.Where(freqMag => freqMag.Value > 3).Select(freq => (int)freq.Key).ToList();
             if (frequencyList.Count != 0)
             {
-                DrawNoteHistory(frequencyList);
-                DrawNoteHistoryLabel(noteFrequency.OrderBy(note => Math.Abs(note.Key - (int)(freqMagList.Where(freqMag => freqMag.Value > 3).OrderByDescending(freq => freq.Value).FirstOrDefault().Key))).FirstOrDefault().Value);
+                ShiftNoteHistory();
+                DrawNoteHistory(noteFrequency.OrderBy(note => Math.Abs(note.Key - (int)(freqMagList.Where(freqMag => freqMag.Value > 3).OrderByDescending(freq => freq.Value).FirstOrDefault().Key))).FirstOrDefault().Value,
+                    rootCountdown < 1);
+                rootCountdown = 2;
             }
             else
             {
-                DrawNoteHistoryLabel("");
+                rootCountdown--;
+                DrawNoteHistory("", false);
             }
 
             // Store max frequency for magnitude calibration
@@ -464,7 +468,8 @@ namespace AudioPreviewApp
         }
 
         const int y_chunk = 10;
-        private void DrawNoteHistoryLabel(string notePlayed)
+        private string prevNote;
+        private void DrawNoteHistory(string notePlayed, bool rootNote)
         {
             try
             {
@@ -476,20 +481,20 @@ namespace AudioPreviewApp
                         notePlayed = notePlayed.Substring(0, 1);
                 }
                 var labelWidth = (PictureBox_NoteHistory.Image.Width - 1) / 12;
-                var labelList = new List<string>
+                var labelList = new Dictionary<string, double>
                 {
-                    "C",
-                    "C#",
-                    "D",
-                    "D#",
-                    "E",
-                    "F",
-                    "F#",
-                    "G",
-                    "G#",
-                    "A",
-                    "A#",
-                    "B",
+                    {"C", 0},
+                    {"C#", 0.5},
+                    {"D", 1},
+                    {"D#", 1.5},
+                    {"E", 2},
+                    {"F", 2.5},
+                    {"F#", 3},
+                    {"G", 3.5},
+                    {"G#", 4},
+                    {"A", 4.5},
+                    {"A#", 5},
+                    {"B", 5.5},
                 };
 
                 // Draw label
@@ -497,17 +502,19 @@ namespace AudioPreviewApp
                 {
                     using (var graphics = Graphics.FromImage(PictureBox_NoteHistory.Image))
                     {
-                        graphics.DrawString(labelList[offset_x - 1], new Font("Arial", 6), new SolidBrush(Color.CadetBlue), offset_x * labelWidth - (labelWidth / 2), PictureBox_NoteHistory.Image.Height - 1 - y_chunk);
+                        graphics.DrawString(labelList.Keys.ToArray()[offset_x - 1], new Font("Arial", 6), new SolidBrush(Color.CadetBlue), offset_x * labelWidth - (labelWidth / 2), PictureBox_NoteHistory.Image.Height - 1 - y_chunk);
 
-                        if (notePlayed == labelList[offset_x - 1])
+                        if (notePlayed == labelList.Keys.ToArray()[offset_x - 1])
                         {
+                            // Draw note played
+                            var noteColor = rootNote ? Color.Red : Color.Black;
+
                             foreach (var range_x in Enumerable.Range(-10, 20))
                             {
                                 foreach (var range_y in Enumerable.Range(-y_chunk, y_chunk))
                                 {
-
                                     ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(range_x + offset_x * labelWidth - (labelWidth / 2),
-                                        PictureBox_NoteHistory.Image.Height - 1 - y_chunk + range_y, Color.Black);
+                                        PictureBox_NoteHistory.Image.Height - 1 - y_chunk + range_y, noteColor);
                                 }
                             }
                         }
@@ -523,6 +530,24 @@ namespace AudioPreviewApp
                         ((Bitmap)PictureBox_NoteHistory.Image).SetPixel(offset_x * labelWidth + 1, pixel_y, Color.LightGray);
                     }
                 }
+
+                // Update current scale
+                switch (rootNote)
+                {
+                    case true:
+                        ListBox_CurrentScale.Items.Clear();
+                        ListBox_CurrentScale.Items.Add(notePlayed);
+                        prevNote = notePlayed;
+                        break;
+                    case false when notePlayed != prevNote && notePlayed != "" && labelList.ContainsKey(notePlayed):
+                        var prevPos = labelList[prevNote];
+                        var currPos = labelList[notePlayed];
+                        var stepSize = prevPos < currPos ? currPos - prevPos
+                                                        : currPos - prevPos + 6;
+                        ListBox_CurrentScale.Items.Add(notePlayed + " : " + stepSize);
+                        prevNote = notePlayed;
+                        break;
+                }
             }
             catch (Exception ex)
             {
@@ -530,7 +555,7 @@ namespace AudioPreviewApp
             }
         }
 
-        private void DrawNoteHistory(List<int> frequencyList)
+        private void ShiftNoteHistory()
         {
             var resultImage = new Bitmap(600, 308);
 
@@ -541,9 +566,15 @@ namespace AudioPreviewApp
                 {
                     for (var col = 1; col < resultImage.Width; col++)
                     {
-                        if (((Bitmap)PictureBox_NoteHistory.Image).GetPixel(col, row).Name == "ff000000")
+                        var currColor = ((Bitmap)PictureBox_NoteHistory.Image).GetPixel(col, row).Name;
+                        if (currColor == "ff000000")
                         {
                             resultImage.SetPixel(col, row - y_chunk, Color.Black);
+                        }
+
+                        if (currColor == "ffff0000")
+                        {
+                            resultImage.SetPixel(col, row - y_chunk, Color.Red);
                         }
                     }
                 }

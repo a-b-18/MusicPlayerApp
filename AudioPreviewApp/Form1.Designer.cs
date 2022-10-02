@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title9 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title10 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title13 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title14 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title15 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title16 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title17 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.Title title18 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.Chart_Time = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ListBox_GreatestFrequency = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -169,10 +169,12 @@
             this.TS_KeyboardToggle = new System.Windows.Forms.ToolStripMenuItem();
             this.Panel_FreqGraph = new System.Windows.Forms.Panel();
             this.Panel_TimeGraph = new System.Windows.Forms.Panel();
+            this.UpDown_SelectOutput = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PictureBox_NoteHistory = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.UpDown_SelectOutput = new System.Windows.Forms.NumericUpDown();
+            this.ListBox_CurrentScale = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Time)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Chart_Frequency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_F3)).BeginInit();
@@ -288,56 +290,56 @@
             this.CMS_ToggleWidget.SuspendLayout();
             this.Panel_FreqGraph.SuspendLayout();
             this.Panel_TimeGraph.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UpDown_SelectOutput)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_NoteHistory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UpDown_SelectOutput)).BeginInit();
             this.SuspendLayout();
             // 
             // Chart_Time
             // 
-            chartArea3.Name = "ChartArea1";
-            this.Chart_Time.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.Chart_Time.Legends.Add(legend3);
+            chartArea5.Name = "ChartArea1";
+            this.Chart_Time.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.Chart_Time.Legends.Add(legend5);
             this.Chart_Time.Location = new System.Drawing.Point(0, 6);
             this.Chart_Time.Name = "Chart_Time";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series7.Legend = "Legend1";
-            series7.Name = "Channel 1";
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series8.Legend = "Legend1";
-            series8.Name = "Channel 2";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Legend = "Legend1";
-            series9.Name = "Start Cursor";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Legend = "Legend1";
-            series10.Name = "End Cursor";
-            this.Chart_Time.Series.Add(series7);
-            this.Chart_Time.Series.Add(series8);
-            this.Chart_Time.Series.Add(series9);
-            this.Chart_Time.Series.Add(series10);
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series13.Legend = "Legend1";
+            series13.Name = "Channel 1";
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series14.Legend = "Legend1";
+            series14.Name = "Channel 2";
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series15.Legend = "Legend1";
+            series15.Name = "Start Cursor";
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Legend = "Legend1";
+            series16.Name = "End Cursor";
+            this.Chart_Time.Series.Add(series13);
+            this.Chart_Time.Series.Add(series14);
+            this.Chart_Time.Series.Add(series15);
+            this.Chart_Time.Series.Add(series16);
             this.Chart_Time.Size = new System.Drawing.Size(1584, 324);
             this.Chart_Time.TabIndex = 0;
             this.Chart_Time.Text = "Series1";
-            title7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            title7.Name = "Title1";
-            title7.Text = "Time Domain";
-            title8.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            title8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            title8.Name = "Title2";
-            title8.Text = "Time (milliseconds)";
-            title9.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
-            title9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            title9.Name = "Title3";
-            title9.Text = "Amplitude";
-            this.Chart_Time.Titles.Add(title7);
-            this.Chart_Time.Titles.Add(title8);
-            this.Chart_Time.Titles.Add(title9);
+            title13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            title13.Name = "Title1";
+            title13.Text = "Time Domain";
+            title14.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title14.Name = "Title2";
+            title14.Text = "Time (milliseconds)";
+            title15.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
+            title15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title15.Name = "Title3";
+            title15.Text = "Amplitude";
+            this.Chart_Time.Titles.Add(title13);
+            this.Chart_Time.Titles.Add(title14);
+            this.Chart_Time.Titles.Add(title15);
             // 
             // ListBox_GreatestFrequency
             // 
@@ -401,37 +403,37 @@
             // 
             // Chart_Frequency
             // 
-            chartArea4.Name = "ChartArea1";
-            this.Chart_Frequency.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.Chart_Frequency.Legends.Add(legend4);
+            chartArea6.Name = "ChartArea1";
+            this.Chart_Frequency.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.Chart_Frequency.Legends.Add(legend6);
             this.Chart_Frequency.Location = new System.Drawing.Point(3, 6);
             this.Chart_Frequency.Name = "Chart_Frequency";
-            series11.ChartArea = "ChartArea1";
-            series11.Legend = "Legend1";
-            series11.Name = "Channel 1";
-            series12.ChartArea = "ChartArea1";
-            series12.Legend = "Legend1";
-            series12.Name = "Channel 2";
-            this.Chart_Frequency.Series.Add(series11);
-            this.Chart_Frequency.Series.Add(series12);
+            series17.ChartArea = "ChartArea1";
+            series17.Legend = "Legend1";
+            series17.Name = "Channel 1";
+            series18.ChartArea = "ChartArea1";
+            series18.Legend = "Legend1";
+            series18.Name = "Channel 2";
+            this.Chart_Frequency.Series.Add(series17);
+            this.Chart_Frequency.Series.Add(series18);
             this.Chart_Frequency.Size = new System.Drawing.Size(1584, 324);
             this.Chart_Frequency.TabIndex = 1;
             this.Chart_Frequency.Text = "Series1";
-            title10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            title10.Name = "Title1";
-            title10.Text = "Frequency Domain";
-            title11.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            title11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            title11.Name = "Title2";
-            title11.Text = "Frequency (Hz)";
-            title12.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
-            title12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            title12.Name = "Title3";
-            title12.Text = "Amplitude";
-            this.Chart_Frequency.Titles.Add(title10);
-            this.Chart_Frequency.Titles.Add(title11);
-            this.Chart_Frequency.Titles.Add(title12);
+            title16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            title16.Name = "Title1";
+            title16.Text = "Frequency Domain";
+            title17.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            title17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title17.Name = "Title2";
+            title17.Text = "Frequency (Hz)";
+            title18.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
+            title18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            title18.Name = "Title3";
+            title18.Text = "Amplitude";
+            this.Chart_Frequency.Titles.Add(title16);
+            this.Chart_Frequency.Titles.Add(title17);
+            this.Chart_Frequency.Titles.Add(title18);
             // 
             // PictureBox_F3
             // 
@@ -2128,8 +2130,28 @@
             this.Panel_TimeGraph.Size = new System.Drawing.Size(1584, 335);
             this.Panel_TimeGraph.TabIndex = 281;
             // 
+            // UpDown_SelectOutput
+            // 
+            this.UpDown_SelectOutput.Location = new System.Drawing.Point(15, 273);
+            this.UpDown_SelectOutput.Name = "UpDown_SelectOutput";
+            this.UpDown_SelectOutput.Size = new System.Drawing.Size(120, 20);
+            this.UpDown_SelectOutput.TabIndex = 11;
+            this.UpDown_SelectOutput.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 257);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Select Output";
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.ListBox_CurrentScale);
             this.panel1.Controls.Add(this.PictureBox_NoteHistory);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 974);
@@ -2146,23 +2168,23 @@
             this.PictureBox_NoteHistory.TabIndex = 0;
             this.PictureBox_NoteHistory.TabStop = false;
             // 
-            // label3
+            // ListBox_CurrentScale
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 257);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Select Output";
+            this.ListBox_CurrentScale.FormattingEnabled = true;
+            this.ListBox_CurrentScale.Location = new System.Drawing.Point(111, 31);
+            this.ListBox_CurrentScale.Name = "ListBox_CurrentScale";
+            this.ListBox_CurrentScale.Size = new System.Drawing.Size(120, 225);
+            this.ListBox_CurrentScale.TabIndex = 1;
             // 
-            // UpDown_SelectOutput
+            // label4
             // 
-            this.UpDown_SelectOutput.Location = new System.Drawing.Point(15, 273);
-            this.UpDown_SelectOutput.Name = "UpDown_SelectOutput";
-            this.UpDown_SelectOutput.Size = new System.Drawing.Size(120, 20);
-            this.UpDown_SelectOutput.TabIndex = 11;
-            this.UpDown_SelectOutput.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(108, 15);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Current Scale";
             // 
             // Form1
             // 
@@ -2295,9 +2317,10 @@
             this.Panel_FreqGraph.PerformLayout();
             this.Panel_TimeGraph.ResumeLayout(false);
             this.Panel_TimeGraph.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_NoteHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpDown_SelectOutput)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_NoteHistory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2433,6 +2456,8 @@
         private System.Windows.Forms.PictureBox PictureBox_NoteHistory;
         private System.Windows.Forms.NumericUpDown UpDown_SelectOutput;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox ListBox_CurrentScale;
     }
 }
 
